@@ -283,20 +283,28 @@ export default {
     this.fetchProducts()
   },
   methods: {
-    fetchProducts() {
+    async fetchProducts() {
       const api = 'https://cool-shop-backend.herokuapp.com/api/products'
       const vm = this
 
-      vm.axios.get(api).then(response => {
-        console.log(response)
+      // vm.axios.get(api).then(response => {
+      //   console.log(response)
 
-        if (response.statusText !== 'OK') {
-          throw new Error(statusText)
-        }
+      //   if (response.statusText !== 'OK') {
+      //     throw new Error(statusText)
+      //   }
 
-        vm.products = response.data
-      })
+      //   // vm.products = response.data
+      // })
 
+      const response = await vm.axios.get(api)
+      console.log(response)
+
+      if (response.statusText !== 'OK') {
+        throw new Error(statusText)
+      }
+
+      vm.products = response.data
       // this.products = dummyData.restaurants
     }
   },
