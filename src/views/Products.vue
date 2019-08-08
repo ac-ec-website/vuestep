@@ -6,7 +6,7 @@
 
     <div class="row">
       <!-- 產品卡片 -->
-      <ProductsCard v-for="restaurant in restaurants" :key="restaurant.id" :initial-restaurant="restaurant" />
+      <ProductsCard v-for="product in products" :key="product.id" :initial-product="product" />
     </div>
 
     <!-- 分頁標籤  -->
@@ -272,10 +272,11 @@ const dummyData = {
   next: 2,
   categoryId: ''
 }
+
 export default {
   data() {
     return {
-      restaurants: []
+      products: []
     }
   },
   created() {
@@ -287,10 +288,16 @@ export default {
       const vm = this
 
       vm.axios.get(api).then(response => {
-        console.log(response.data)
+        console.log(response)
+
+        if (response.statusText !== 'OK') {
+          throw new Error(statusText)
+        }
+
+        vm.products = response.data
       })
 
-      this.restaurants = dummyData.restaurants
+      // this.products = dummyData.restaurants
     }
   },
   components: {
